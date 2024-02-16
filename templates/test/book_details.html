@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            font-size: 28px;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 22px;
+        }
+
+        p {
+            text-align: center;
+            margin: 5px 0;
+        }
+
+        .review {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        
+        textarea, input[type="submit"], select {
+            width: 50%;
+            max-width: 100%;
+            margin: 0 auto; /* Center horizontally */
+            display: block; /* Ensure block-level display */
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            text-align: center;
+            width: 15%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            text-align: center;
+            background-color: #0056b3;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ book[1] }}</h1>
+        <p><strong>Author:</strong> {{ book[2] }}</p>
+        <p><strong>Publication Year:</strong> {{ book[3] }}</p>
+        <p><strong>ISBN:</strong> {{ book[0] }}</p>
+        
+        <h2>Reviews</h2>
+        {% if reviews %}
+            {% for review in reviews %}
+                <div class="review">
+                    <p>{{ review[0] }}</p>
+                    <p><strong>Rating:</strong> {{ review[1] }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No reviews available.</p>
+        {% endif %}
+        
+        <h2>Add Review</h2>
+        <form action="/save_review/{{ book[0] }}" method="post">
+            <input type="hidden" name="email" value="{{ user_email }}">  <!-- Include user's email as a hidden field -->
+            <textarea name="review" rows="4" placeholder="Enter your review"></textarea><br>
+            <label for="rating">Rating:</label>
+            <select name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select><br>
+            <input type="submit" value="Save Review">
+        </form>
+        <h2>Book Details</h2>
+        <p><strong>Average Rating:</strong> {{ average_rating }}</p>
+        <p><strong>Number of Ratings:</strong> {{ ratings_count }}</p>
+        <p><a href="/logout">Logout</a></p>
+    </div>
+</body>
+</html>
