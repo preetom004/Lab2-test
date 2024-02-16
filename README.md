@@ -3,8 +3,8 @@
 dbname = "postgres"
 user = "postgres"
 password = "Itv4312"
-host = "localhost"  # or your host if it's different
-port = "5432"  # or your port if it's different 
+host = "localhost"  
+port = "5432"  
 
 then create three table name books, users, book_ri=eviews
 books column will be  isbn,title,author, year
