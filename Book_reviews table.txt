@@ -1,0 +1,7 @@
+CREATE TABLE book_reviews (
+    email VARCHAR(255) REFERENCES users(email),
+    isbn VARCHAR(13) REFERENCES books(isbn),
+    review TEXT,
+    rating INTEGER,
+    PRIMARY KEY (email, isbn)
+);
